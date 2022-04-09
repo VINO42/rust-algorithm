@@ -11,7 +11,7 @@ pub struct LinkedList<Node> {
     //链表长度
     pub length: usize,
 }
-struct Node<T> {
+pub struct Node<T> {
     element: T,
     next: Link<T>,
 }
@@ -25,11 +25,11 @@ impl<T> LinkedList<T> {
         }
     }
     //是否为空
-    fn is_empty(&self) -> bool {
+    pub fn is_empty(&self) -> bool {
         self.length == 0
     }
     //链表长度
-    fn length(&self) -> usize {
+    pub fn length(&self) -> usize {
         self.length
     }
 }
