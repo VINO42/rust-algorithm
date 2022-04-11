@@ -1,8 +1,18 @@
-mod stack_struct;
+pub mod queue;
+
+pub mod stack_struct;
+
 use stack_struct::stack::Stack;
+
+use queue::Queue;
 
 fn main() {
     println!("Hello, world!");
+    test_stack();
+    test_queue();
+}
+
+pub fn test_stack() {
     let mut st = Stack::new();
     st.push(1);
     st.push(2);
@@ -17,7 +27,6 @@ fn main() {
     println!("s is checkPass{}", check_brackets(s));
     println!("s1 is checkPass{}", check_brackets(s1));
 }
-
 /**
  * 使用stack 做到存储{} 的压弹栈 (((((())))))
  *
@@ -50,4 +59,27 @@ fn check_brackets(par: &str) -> bool {
         index += 1;
     }
     balanc && stack.is_empty()
+}
+
+pub fn test_queue() {
+    let mut q1 = Queue::new(3);
+
+    let a1 = q1.enqueue(1);
+    let a2 = q1.enqueue(2);
+    let a3 = q1.enqueue(3);
+
+    if let Err(error) = q1.enqueue(4) {
+        println!("error:{}", error);
+    } else {
+        println!("empty queue")
+    }
+    let b1 = q1.dequeue();
+    println!("queue b1:{}", b1.unwrap());
+
+    println!(
+        "queue size:{},isEmpty:{},q:{:?}",
+        q1.size(),
+        q1.is_empty(),
+        q1
+    );
 }
