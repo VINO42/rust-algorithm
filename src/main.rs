@@ -10,6 +10,9 @@ fn main() {
     println!("Hello, world!");
     test_stack();
     test_queue();
+    let v = vec!["郭靖", "杨康", "令狐冲", "杨过", "东方不败", "风清扬"];
+    let the_last_child = hot_potato(v, 156);
+    println!("the last child survived is :{}", the_last_child);
 }
 
 pub fn test_stack() {
@@ -82,4 +85,28 @@ pub fn test_queue() {
         q1.is_empty(),
         q1
     );
+}
+/**
+ * 假设拿山芋的孩子始终在队列的前面。当拿到山芋的时候，这个孩子将先出队再入队，把
+自己放在队列的最后，这相当于他把山芋传递给了下一个孩子，而那个孩子必须处于队首，所
+以他自己出队，让出了队首的位置，自己加入了队尾。经过 num 次的出队入队后，前面的孩
+子被永久移除。接着另一个周期开始，继续此过程，直到只剩下一个名字。
+ */
+pub fn hot_potato(names: Vec<&str>, num: usize) -> &str {
+    let mut arr = Queue::new(names.len());
+    for name in names {
+        let _rm = arr.enqueue(name);
+    }
+    //当队中的孩子大于一个的时候一直循环游戏
+    while arr.size() > 1 {
+        //传递土豆
+        for i in 0..num {
+            //队列中的孩子先出队 然后再入队
+            let n = arr.dequeue().unwrap();
+            let n1 = arr.enqueue(n);
+        }
+        //出入队列 完成一周 删除队尾的孩子
+        arr.dequeue();
+    }
+    arr.dequeue().unwrap()
 }
